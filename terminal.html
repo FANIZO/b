@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Terminal</title>
+  <style>
+    body { background-color: black; color: lime; font-family: monospace; text-align: center; padding-top: 20%; }
+    a { color: red; font-size: 1.5em; }
+  </style>
+</head>
+<body>
+  <h1>Terminal</h1>
+  <a href="reboot.html">Go to reboot.html</a>
+
+<div id="countdown" style="
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  padding: 8px 14px;
+  font-family: monospace;
+  font-size: 1.2em;
+  border-radius: 5px;
+  z-index: 9999;">
+  ⏱ Time Left: <span id="timeLeft">60</span>s
+</div>
+
+<script>
+  const startTime = parseInt(localStorage.getItem("gameStart"), 10) || Date.now();
+  const duration = 60;
+
+  function updateTimer() {
+    const elapsed = (Date.now() - startTime) / 1000;
+    const left = Math.max(0, Math.ceil(duration - elapsed));
+    const timeSpan = document.getElementById("timeLeft");
+    if (timeSpan) timeSpan.textContent = left;
+
+    if (left > 0) {
+      requestAnimationFrame(updateTimer);
+    } else {
+      window.location.href = "time_up.html";
+    }
+  }
+
+  requestAnimationFrame(updateTimer);
+</script>
+
+</body>
+</html>
